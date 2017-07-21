@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +18,7 @@
 				<td><input type="password" name="password"></td>
 			</tr>
 			<tr>
+				<td colspan="2"><input type="checkbox" name="savename" value="ok">记住用户名</td>
 				<td colspan="2"><input type="checkbox" name="autologin" value="ok">自动登录</td>
 			</tr>
 			<tr>
@@ -25,5 +26,15 @@
 			</tr>
 		</table>
 	</form>
+	<script type="text/javascript">
+		onload =function(){
+			var s = "${cookie.savename.value}";
+			s=decodeURI(s);
+			//alert(s);
+			
+			//将解码后的用户名付给username的文本框
+			document.getElementsByName("username")[0].value=s;
+		}
+	</script>
 </body>
 </html>

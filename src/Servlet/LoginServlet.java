@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -44,8 +45,16 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 			//判断是否勾选了自动登录。若勾选了需要将用户名和密码放到cookie中写回浏览器
 			if(Constant.IS_AUTO_LOGIN.equals(request.getParameter("autologin"))){
-				//创建cookie
+				//创建cookie 注意中文
 				Cookie c = new Cookie("autologin", username+"-"+password);
+				c.setMaxAge(3600);
+				c.setPath(request.getContextPath()+"/");
+				response.addCookie(c);
+			}
+			//判断是否勾选了记住用户名，若勾选了需要将用户名，需要将用户名放入cookie中 写回浏览器
+			if(Constant.IS_SAVE_NAME.equals(request.getParameter("savename"))){
+				//创建cookie 注意中文
+				Cookie c = new Cookie("savename", URLEncoder.encode(username,"utf-8"));
 				c.setMaxAge(3600);
 				c.setPath(request.getContextPath()+"/");
 				response.addCookie(c);
